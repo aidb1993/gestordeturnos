@@ -1,0 +1,29 @@
+<h1>CITAS</h1>
+<div class="container">
+  <div class="buttons">
+    <button mat-raised-button color="primary" class="fechas" mat-raised-button (click)="getAppointments()">Ver Todas las citas</button>
+    <form [formGroup]="dateForm" (ngSubmit)="onSubmit()" >
+      <mat-form-field [formGroup]="dateForm">
+        <mat-label>Selecciona una fecha</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button mat-raised-button type="submit">Buscar por fecha</button>
+    </form>
+  </div>
+  <div class="content">
+    <mat-card  *ngFor="let appointment of appointments">
+      <mat-card-header>
+        <mat-card-title>{{appointment.date}}</mat-card-title>
+        <mat-card-subtitle>{{appointment.time}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content><h2>{{appointment.user}}</h2></mat-card-content>
+      <mat-card-actions>
+        <button (click)="deleteAppointment($event, appointment)" mat-button>Borrar</button>
+      </mat-card-actions>
+    </mat-card>
+    <h1 *ngIf="appointments.length===0 && this.firstLoaded === false">No hay citas programadas</h1>
+    <mat-progress-spinner mode="indeterminate" *ngIf="!loaded"></mat-progress-spinner>
+  </div>
+</div>

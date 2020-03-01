@@ -1,0 +1,25 @@
+<div class="container">
+  <div *ngIf="!booked" class="booking">
+    <form [formGroup]="newAppointmentForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="user">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Selecciona una fecha</mat-label>
+        <input matInput [matDatepicker]="date" formControlName="date" >
+        <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+        <mat-datepicker #date></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Horario</mat-label>
+        <input [ngxTimepicker]="picker" matInput formControlName="time"  [format]="24" min="08:00 am" max="20:00 pm">
+        <ngx-material-timepicker [minutesGap]="15" #picker></ngx-material-timepicker>
+      </mat-form-field>
+      <button [disabled]="!newAppointmentForm.valid" type="submit" mat-raised-button>Agendar!</button>
+    </form>
+  </div>
+  <div *ngIf="booked" class="booked">
+    <h1>Turno reservado , muchas gracias!</h1>
+  </div>
+</div>

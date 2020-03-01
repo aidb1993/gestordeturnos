@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "cronogramacitas": {
+      "hosting": {
+        "appointmentmanager": [
+          "cronogramacitas"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "cronogramacitas"
+  }
+}
