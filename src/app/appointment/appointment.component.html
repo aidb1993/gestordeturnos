@@ -1,4 +1,4 @@
-<h1>CITAS</h1>
+<h1 *ngIf="login.user$ | async as user">estas son tus citas {{user.displayName}} </h1>
 <div class="container">
   <div class="buttons">
     <button mat-raised-button color="primary" class="fechas" mat-raised-button (click)="getAppointments()">Ver Todas las citas</button>

@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Appointment } from '../../core/models/appointment.model';
 import { AppointmentService } from '../../core/services/appointment.service';
+import { LoginService } from '../../core/services/login.service';
 
 @Component({
   selector: 'app-appointment',
@@ -12,7 +13,9 @@ import { AppointmentService } from '../../core/services/appointment.service';
 })
 export class AppointmentComponent implements OnInit {
 
-  constructor(private appointmentService: AppointmentService, private datePipe: DatePipe) { }
+  constructor(private appointmentService: AppointmentService, private datePipe: DatePipe,
+              public login: LoginService
+              ) { }
   appointments: Array<Appointment> = [];
   loaded = true;
   firstLoaded = true;

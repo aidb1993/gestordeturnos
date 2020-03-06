@@ -9,3 +9,8 @@
 span{
   cursor: pointer;
 }
+
+mat-toolbar-row {
+  display: flex;
+  justify-content: space-between;
+}
