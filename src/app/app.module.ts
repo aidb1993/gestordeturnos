@@ -28,10 +28,13 @@ import { AdminModule } from './admin/admin.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppointmentComponent } from './appointment/appointment.component';
-import { BookComponent } from './book/book.component';
+import { BookComponent } from './client/book/book.component';
 import { LandingComponent } from './landing/landing.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { LandingModule } from './landing/landing.module';
+import { MainComponent } from './client/main/main.component';
+import { ClientAppointmentsComponent } from './client/client-appointments/client-appointments.component';
+import { BackButtonComponent } from './components/back-button/back-button.component';
 
 const appRoutes: Routes = [
   {
@@ -67,6 +70,14 @@ const appRoutes: Routes = [
   {
     path: 'landing/super',
     redirectTo: 'super'
+  },
+  {
+    path: 'client',
+    component: MainComponent
+  },
+  {
+    path: 'client/apps',
+    component: ClientAppointmentsComponent
   }
 ];
 
@@ -76,6 +87,9 @@ const appRoutes: Routes = [
     AppointmentComponent,
     BookComponent,
     LandingComponent,
+    MainComponent,
+    ClientAppointmentsComponent,
+    BackButtonComponent,
   ],
   imports: [
     BrowserModule,

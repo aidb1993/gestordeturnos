@@ -29,12 +29,15 @@ export class AppointmentComponent implements OnInit {
   ngOnInit(): void {
     this.login.user$.subscribe(res => {
       this.sessionData = res;
+      console.log(this.sessionData);
+      this.appointmentService.setProf(this.sessionData.profId);
     });
   }
   getAppointments() {
     this.appointmentService.getUserApp(this.sessionData.profId).subscribe(appointments => {
       this.appointments = appointments;
       this.firstLoaded = false;
+      console.log(this.appointments);
     });
   }
 

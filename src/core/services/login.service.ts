@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { Profesional } from '../models/profesional.model';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -74,9 +75,11 @@ export class LoginService {
 
 getProfs() {
   const ref = this.afs.collection('profesionals');
-  this.profs = ref.snapshotChanges().pipe(map(prof => {
-    return prof.map(a => {
-      return a.payload.doc.data();
+  this.profs = ref.snapshotChanges().pipe(map(changes => {
+    return changes.map(a => {
+      const data = a.payload.doc.data() as Profesional;
+      data.uid = a.payload.doc.id;
+      return data;
     });
   }));
   return this.profs;

@@ -18,7 +18,10 @@
         <mat-card-title>{{appointment.date}}</mat-card-title>
         <mat-card-subtitle>{{appointment.time}}</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content><h2>{{appointment.user}}</h2></mat-card-content>
+      <mat-card-content>
+        <h2>{{appointment.displayName}}</h2>
+        <h3>{{appointment.comment}}</h3>
+      </mat-card-content>
       <mat-card-actions>
         <button (click)="deleteAppointment($event, appointment)" mat-button>Borrar</button>
       </mat-card-actions>
@@ -26,4 +29,5 @@
     <h1 *ngIf="appointments.length===0 && this.firstLoaded === false">No hay citas programadas</h1>
     <mat-progress-spinner mode="indeterminate" *ngIf="!loaded"></mat-progress-spinner>
   </div>
+  <app-back-button [link]="''"></app-back-button>
 </div>
