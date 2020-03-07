@@ -10,6 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,6 +22,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../core/services/auth.guard';
 
 import {environment} from '../environments/environment';
+import { AdminComponent } from './admin/admin.component';
+import { AdminModule } from './admin/admin.module';
 
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -56,8 +59,16 @@ const appRoutes: Routes = [
   {
     path: 'landing/admin',
     redirectTo: 'admin'
+  },
+  {
+    path: 'super',
+    component: AdminComponent
+  },
+  {
+    path: 'landing/super',
+    redirectTo: 'super'
   }
-]
+];
 
 @NgModule({
   declarations: [
@@ -84,8 +95,10 @@ const appRoutes: Routes = [
     MatNativeDateModule,
     NgxMaterialTimepickerModule,
     MatToolbarModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    LandingModule
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    LandingModule,
+    AdminModule,
+    MatSelectModule
   ],
   providers: [AppointmentService, DatePipe, AuthGuard, MatSnackBar],
   bootstrap: [AppComponent]

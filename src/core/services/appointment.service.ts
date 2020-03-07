@@ -10,6 +10,7 @@ export class AppointmentService {
   appointmentsCollection: AngularFirestoreCollection<Appointment>;
   appointments: Observable<any[]>;
   appointmentsDoc: AngularFirestoreDocument<Appointment>;
+  app: Observable<any>;
 
   constructor(public afs: AngularFirestore) {
 
@@ -28,7 +29,7 @@ export class AppointmentService {
     return this.appointments;
   }
   createAppointment(appointment: Appointment) {
-    this.appointmentsCollection = this.afs.collection('Appointments', ref => ref.orderBy('date', 'asc').orderBy('time', 'asc'));
+    this.appointmentsCollection = this.afs.collection('Appointments');
     this.appointmentsCollection.add(appointment).then(r => console.log(r));
   }
   deleteAppointment(appointment: Appointment): void {
@@ -47,6 +48,20 @@ export class AppointmentService {
       })
     );
     return this.appointments;
+  }
+
+  getUserApp(profId: string) {
+    const ref = this.afs.collection('profesionals/').doc(`${profId}`).collection('appointments');
+    this.app = ref.snapshotChanges().pipe(
+      map(changes => {
+        return changes.map(a => {
+          const data = a.payload.doc.data() as Appointment;
+          data.id = a.payload.doc.id;
+          return data;
+        });
+      })
+    );
+    return this.app;
   }
 }
 

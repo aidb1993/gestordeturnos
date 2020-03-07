@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Appointment } from '../../core/models/appointment.model';
 import { AppointmentService } from '../../core/services/appointment.service';
+import { LoginService } from '../../core/services/login.service';
 
 @Component({
   selector: 'app-book',
@@ -11,7 +12,10 @@ import { AppointmentService } from '../../core/services/appointment.service';
 })
 export class BookComponent implements OnInit {
 
-  constructor(private appointmentService: AppointmentService, private datePipe: DatePipe) { }
+  constructor(private appointmentService: AppointmentService,
+              private datePipe: DatePipe,
+              private loginService: LoginService
+  ) { }
 
   newAppointmentForm = new FormGroup({
     date : new FormControl('', [Validators.required]),
@@ -24,8 +28,12 @@ export class BookComponent implements OnInit {
     user: ''
   };
   booked = false;
+  profs = [];
 
   ngOnInit(): void {
+    this.loginService.getProfs().subscribe(value => {
+      this.profs = value;
+    });
   }
 
   onSubmit(): void {

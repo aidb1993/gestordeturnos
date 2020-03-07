@@ -2,8 +2,10 @@
   <div *ngIf="!booked" class="booking">
     <form [formGroup]="newAppointmentForm" (ngSubmit)="onSubmit()">
       <mat-form-field>
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="user">
+        <mat-label>Elija el profesional</mat-label>
+        <mat-select formControlName="user">
+          <mat-option *ngFor="let prof of profs" value="{{prof.name}}">{{prof.name}}</mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Selecciona una fecha</mat-label>

@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -13,6 +13,8 @@ import { User } from '../models/user.model';
 })
 export class LoginService {
   user$: Observable<User>;
+  users: Observable<any>;
+  profs: Observable<any>;
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
@@ -54,6 +56,31 @@ export class LoginService {
 
     return userRef.set(data, {merge: true});
   }
+
+  makeProf(uid: string) {
+   const ref = this.afs.collection('users').doc(`${uid}`);
+   ref.update({isProf: true});
+  }
+
+  getUsers() {
+ const ref = this.afs.collection('users');
+ this.users = ref.snapshotChanges().pipe(map(user => {
+   return user.map(a => {
+     return  a.payload.doc.data();
+   });
+ }));
+ return this.users;
+}
+
+getProfs() {
+  const ref = this.afs.collection('profesionals');
+  this.profs = ref.snapshotChanges().pipe(map(prof => {
+    return prof.map(a => {
+      return a.payload.doc.data();
+    });
+  }));
+  return this.profs;
+}
 
 
 }

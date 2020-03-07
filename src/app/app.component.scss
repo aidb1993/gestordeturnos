@@ -10,7 +10,16 @@ span{
   cursor: pointer;
 }
 
+
+
 mat-toolbar-row {
   display: flex;
   justify-content: space-between;
+}
+
+@media only screen and (max-width: 500px) {
+  mat-toolbar{
+    width: 100%;
+    overflow: hidden;
+  }
 }
