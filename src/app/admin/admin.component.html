@@ -1,3 +1,12 @@
-<h1>Users</h1>
-<p *ngFor="let user of users">{{user.displayName}}</p>
+<div class="container">
+  <div class="users">
+    <h1>Users</h1>
+    <h2 (click)="loginService.makeProf(user.uid)" *ngFor="let user of users">{{user.displayName}}</h2>
+  </div>
+  <hr>
+  <div class="profs">
+    <h1>Profesionals</h1>
+    <h2 *ngFor="let prof of profs">{{prof.name}}</h2>
+  </div>
+</div>
 
