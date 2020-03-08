@@ -1,0 +1,17 @@
+<div class="container">
+  <div *ngIf="loginService.user$ | async as User">
+    <h1>Hola {{User.displayName}}, estos son tus turnos:</h1>
+    <div class="card-container">
+      <mat-card *ngFor="let appointment of appointments">
+        <mat-card-header>
+          <mat-card-title>{{appointment.profesional.name}}</mat-card-title>
+          <mat-card-subtitle>{{appointment.date}} : {{appointment.time}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          {{appointment.comment}}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <app-back-button [link]="'/client'"></app-back-button>
+</div>

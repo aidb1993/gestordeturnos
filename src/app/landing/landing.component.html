@@ -1,5 +1,6 @@
 <div class="container">
   <h1>Bienvenido al Gestor de Turnos</h1>
-  <button routerLink="book" mat-raised-button>Paciente</button>
+  <button routerLink="/client" mat-raised-button>Paciente</button>
   <button (click)="navigate()" mat-raised-button>Profesional</button>
+  <button (click)="router.navigate(['super'])" mat-raised-button>Admin</button>
 </div>

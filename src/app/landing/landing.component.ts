@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AppointmentService } from '../../core/services/appointment.service';
 import { LoginService } from '../../core/services/login.service';
 import { LoginComponent } from './login/login.component';
 
@@ -13,7 +14,8 @@ import { LoginComponent } from './login/login.component';
 export class LandingComponent implements OnInit {
   constructor(public loginService: LoginService,
               public router: Router,
-              public snackBar: MatSnackBar
+              public snackBar: MatSnackBar,
+              public appointmentService: AppointmentService
   ) { }
 
   data: string;
@@ -23,6 +25,12 @@ export class LandingComponent implements OnInit {
   ngOnInit(): void {
     this.loginService.user$.subscribe(value => {
       this.sessionInfo = value;
+    });
+    this.loginService.getUsers().subscribe(res => {
+      console.log(res);
+    });
+    this.loginService.getProfs().subscribe(value => {
+      console.log(value);
     });
   }
 
