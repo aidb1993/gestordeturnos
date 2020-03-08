@@ -1,2 +1,9 @@
-<p>profile-prof works!</p>
-<app-back-button [link]="'/prof'"></app-back-button>
+<div class="container">
+  <app-loading [loading]="loading">
+    <div class="profile-container" *ngIf="loginService.user$ | async as user">
+      <h1>bienvenido {{user.displayName}}</h1>
+      <h2>Este es el nombre que tus clientes ven : {{profData.name || user.displayName}}</h2>
+    </div>
+    <app-back-button [link]="'/prof'"></app-back-button>
+  </app-loading>
+</div>

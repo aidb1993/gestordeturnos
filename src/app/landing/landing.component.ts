@@ -26,12 +26,13 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService.user$.subscribe(value => {
-      this.loading = true;
-      this.sessionInfo = value;
-      if (this.sessionInfo.isAdmin === true && this.sessionInfo.isAdmin != null) {
-        this.isAdmin = true;
-      } else {
-        this.isAdmin = false;
+      if (value != null) {
+        this.sessionInfo = value;
+        if (this.sessionInfo.isAdmin === true && this.sessionInfo.isAdmin != null) {
+          this.isAdmin = true;
+        } else {
+          this.isAdmin = false;
+        }
       }
       this.loading = false;
     });

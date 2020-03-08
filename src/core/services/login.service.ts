@@ -85,13 +85,25 @@ getProfs() {
   return this.profs;
 }
 
-createProf(uid: string) {
+getProfData(profId: string) {
+  const ref = this.afs.collection('profesionals').doc(profId);
+  const prof = ref.snapshotChanges().pipe(
+    map(changes => {
+      const data = changes.payload.data();
+      return data;
+    })
+  );
+  return prof;
+}
+
+createProf(res: any) {
     const ref = this.afs.collection('profesionals');
     ref.add({
-      uid
+      uid : res.uid,
+      name: res.displayName
     }).then(docRef => {
       console.log(docRef.id);
-      this.afs.collection('users').doc(uid).update({
+      this.afs.collection('users').doc(res.uid).update({
         profId: docRef.id
       });
     });
