@@ -1,0 +1,10 @@
+<div class="container">
+<app-loading [loading]="loading">
+  <h1>Bienvenido! ¿ Que queres hacer?</h1>
+  <button routerLink="/prof/apps" mat-raised-button>Ver mis turnos</button>
+  <button routerLink="/prof/profile" mat-raised-button>Ver mi perfil</button>
+  <button (click)="loginService.createProf('YSkG9cAx7DeN2H43pR2Rlv1MmEv1')">test</button>
+  <app-back-button [link]="''"></app-back-button>
+</app-loading>
+</div>
+

@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import * as firebase from 'firebase';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -85,5 +85,35 @@ getProfs() {
   return this.profs;
 }
 
+createProf(uid: string) {
+    const ref = this.afs.collection('profesionals');
+    ref.add({
+      uid
+    }).then(docRef => {
+      console.log(docRef.id);
+      this.afs.collection('users').doc(uid).update({
+        profId: docRef.id
+      });
+    });
+}
 
+
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class ProfGuard implements CanActivate {
+   admin: boolean;
+   prof: boolean;
+  constructor(public loginService: LoginService) {
+    this.loginService.user$.subscribe(res => {
+      this.admin = res.isAdmin;
+      this.prof = res.isProf;
+    });
+  }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    if (this.prof || this.admin) {
+      return true;
+    }
+  }
 }

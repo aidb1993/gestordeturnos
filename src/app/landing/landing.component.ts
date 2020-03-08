@@ -21,27 +21,32 @@ export class LandingComponent implements OnInit {
   data: string;
   user: any;
   sessionInfo: any;
+  isAdmin: boolean;
+  loading = true;
 
   ngOnInit(): void {
     this.loginService.user$.subscribe(value => {
+      this.loading = true;
       this.sessionInfo = value;
-    });
-    this.loginService.getUsers().subscribe(res => {
-      console.log(res);
-    });
-    this.loginService.getProfs().subscribe(value => {
-      console.log(value);
+      if (this.sessionInfo.isAdmin === true && this.sessionInfo.isAdmin != null) {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
+      }
+      this.loading = false;
     });
   }
 
   navigate(): any {
+    this.loading = true;
     if (this.sessionInfo) {
-      this.router.navigate(['/admin']);
+      this.router.navigate(['/prof']);
     } else {
       this.snackBar.open('Por Favor inicia sesion', '', {
         duration: 3000
       });
     }
+    this.loading = false;
   }
 
 

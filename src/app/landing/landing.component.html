@@ -1,6 +1,8 @@
 <div class="container">
-  <h1>Bienvenido al Gestor de Turnos</h1>
-  <button routerLink="/client" mat-raised-button>Paciente</button>
-  <button (click)="navigate()" mat-raised-button>Profesional</button>
-  <button (click)="router.navigate(['super'])" mat-raised-button>Admin</button>
+  <app-loading [loading]="loading">
+    <h1>Bienvenido al Gestor de Turnos</h1>
+    <button routerLink="/client" mat-raised-button>Paciente</button>
+    <button (click)="navigate()" mat-raised-button>Profesional</button>
+    <button *ngIf="isAdmin" (click)="router.navigate(['super'])" mat-raised-button>Admin</button>
+  </app-loading>
 </div>
