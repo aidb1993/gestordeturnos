@@ -1,8 +1,70 @@
 <div class="container">
   <app-loading [loading]="loading">
     <div class="profile-container" *ngIf="loginService.user$ | async as user">
-      <h1>bienvenido {{user.displayName}}</h1>
-      <h2>Este es el nombre que tus clientes ven : {{profData.name || user.displayName}}</h2>
+      <div>
+        <h1>bienvenido {{user.displayName}}</h1>
+        <h2>Este es el nombre que tus clientes ven : {{profData.name || user.displayName}}</h2>
+        <div class="accordion-container">
+          <mat-accordion>
+            <!--Duracion del turno-->
+<!--            <mat-expansion-panel>-->
+<!--              <mat-expansion-panel-header>-->
+<!--                <mat-panel-title>-->
+<!--                  {{profData.duration}} min-->
+<!--                </mat-panel-title>-->
+<!--                <mat-panel-description>-->
+<!--                  duracion del turno-->
+<!--                </mat-panel-description>-->
+<!--              </mat-expansion-panel-header>-->
+<!--              <mat-form-field>-->
+<!--                <mat-label>duracion del turno</mat-label>-->
+<!--                <mat-select [formControl]="duration" >-->
+<!--                  <mat-option value="60">una hora</mat-option>-->
+<!--                  <mat-option value="30">media hora</mat-option>-->
+<!--                  <mat-option value="15">quince minutos</mat-option>-->
+<!--                </mat-select>-->
+<!--              </mat-form-field>-->
+<!--              <button color="warn" (click)="submit(duration.value, 'duration')" type="submit" mat-raised-button>guardar</button>-->
+<!--            </mat-expansion-panel>-->
+            <!--Hora de apertura-->
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{numberToTime(profData.startTime)}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  Hora de apertura
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <mat-form-field >
+                <mat-label>Hora de apertura</mat-label>
+                <mat-select [formControl]="startTime">
+                  <mat-option *ngFor="let time of timeFrame" [value]="time">{{time}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button color="warn" (click)="submit(startTime.value, 'startTime')" type="submit" mat-raised-button>guardar</button>
+            </mat-expansion-panel>
+            <!--Hora de Cierre-->
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{numberToTime(profData.endTime)}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  Hora de cierre
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <mat-form-field>
+                <mat-label>Hora de cierre</mat-label>
+                <mat-select [formControl]="endTime">
+                  <mat-option *ngFor="let time of timeFrame" [value]="time">{{time}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button color="warn" (click)="submit(endTime.value, 'endTime')" type="submit" mat-raised-button>guardar</button>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
     </div>
     <app-back-button [link]="'/prof'"></app-back-button>
   </app-loading>

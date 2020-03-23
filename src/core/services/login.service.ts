@@ -100,13 +100,23 @@ createProf(res: any) {
     const ref = this.afs.collection('profesionals');
     ref.add({
       uid : res.uid,
-      name: res.displayName
+      name: res.displayName,
+      startTime: '8:00',
+      endTime: '22:00',
+      duration: '1'
     }).then(docRef => {
       console.log(docRef.id);
       this.afs.collection('users').doc(res.uid).update({
         profId: docRef.id
       });
     });
+}
+
+updateProf(profId: any, type: string, data: any) {
+  const ref = this.afs.collection('profesionals').doc(profId);
+  const update = {};
+  update[type] = data;
+  ref.update(update).then(res => console.log(res));
 }
 
 

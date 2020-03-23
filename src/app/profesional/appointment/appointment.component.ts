@@ -42,7 +42,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   getDay(date) {
-    this.appointmentService.getDay(date).subscribe(appointments => {
+    this.appointmentService.getDay(date, this.sessionData.profId).subscribe(appointments => {
       this.appointments = appointments;
       this.firstLoaded = false;
     });

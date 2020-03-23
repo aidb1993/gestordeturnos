@@ -3,20 +3,21 @@
     <form [formGroup]="newAppointmentForm" (ngSubmit)="onSubmit()">
       <mat-form-field>
         <mat-label>Elija el profesional</mat-label>
-        <mat-select formControlName="user">
-          <mat-option *ngFor="let prof of profs" value="{{prof.uid}}">{{prof.name}}</mat-option>
+        <mat-select formControlName="user" >
+          <mat-option *ngFor="let prof of profs" value="{{prof.uid}}" (onSelectionChange)="getProf(prof.uid); profPicked = true">{{prof.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Selecciona una fecha</mat-label>
-        <input matInput [matDatepicker]="date" formControlName="date" >
+        <input matInput [matDatepicker]="date" formControlName="date" [disabled]="!profPicked" (dateChange)="getAppDay($event.value, prof.profId); datePicked = true" >
         <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
         <mat-datepicker #date></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Horario</mat-label>
-        <input [ngxTimepicker]="picker" matInput formControlName="time"  [format]="24" min="08:00 am" max="20:00 pm">
-        <ngx-material-timepicker [minutesGap]="15" #picker></ngx-material-timepicker>
+        <mat-select #hour formControlName="time" [disabled]="!datePicked">
+          <mat-option  value="{{hour}}" *ngFor="let hour of hours">{{hour}}</mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Comentarios (Opcional)</mat-label>

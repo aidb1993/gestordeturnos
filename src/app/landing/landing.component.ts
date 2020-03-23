@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireMessaging } from '@angular/fire/messaging';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { SwPush } from '@angular/service-worker';
 import { AppointmentService } from '../../core/services/appointment.service';
 import { LoginService } from '../../core/services/login.service';
 import { LoginComponent } from './login/login.component';
@@ -15,7 +17,7 @@ export class LandingComponent implements OnInit {
   constructor(public loginService: LoginService,
               public router: Router,
               public snackBar: MatSnackBar,
-              public appointmentService: AppointmentService
+              public swPush: SwPush
   ) { }
 
   data: string;

@@ -1,12 +1,14 @@
 import { DatePipe } from '@angular/common';
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule, FirebaseApp } from '@angular/fire';
 import { canActivate } from '@angular/fire/auth-guard';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AngularFireMessaging } from '@angular/fire/messaging';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -127,7 +129,9 @@ const appRoutes: Routes = [
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     LandingModule,
     AdminModule,
-    MatSelectModule
+    MatSelectModule,
+    MatExpansionModule,
+    FormsModule
   ],
   providers: [AppointmentService, DatePipe, AuthGuard, MatSnackBar, ProfGuard],
   bootstrap: [AppComponent]

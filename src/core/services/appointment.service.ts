@@ -13,7 +13,8 @@ export class AppointmentService {
   appointmentsDoc: AngularFirestoreDocument<Appointment>;
   app: Observable<any>;
   profId: string;
-  profInfo: Observable<Profesional>
+  profInfo: Observable<Profesional>;
+  hours = [];
 
   constructor(public afs: AngularFirestore) {
 
@@ -42,12 +43,13 @@ export class AppointmentService {
     user.add(appointment).then(r => console.log(r));
   }
   deleteAppointment(appointment: Appointment) {
-    this.appointmentsDoc = this.afs.collection('profesionals/').doc(`${appointment.uid}`).collection('appointments').doc(`${appointment.id}`)
+    this.appointmentsDoc =
+    this.afs.collection('profesionals/').doc(`${appointment.uid}`).collection('appointments').doc(`${appointment.id}`)
     this.appointmentsDoc.delete().then(r => console.log(r));
   }
-  getDay(date: string): any {
+  getDay(date: any, profId: string): any {
     const query = ref => ref.where('date', '==', date);
-    this.appointmentsCollection = this.afs.collection('profesionals/').doc(`${this.profId}`).collection('appointments', query);
+    this.appointmentsCollection = this.afs.collection('profesionals/').doc(`${profId}`).collection('appointments', query);
     this.appointments = this.appointmentsCollection.snapshotChanges().pipe(
       map( changes => {
         return changes.map(a => {
@@ -101,6 +103,50 @@ export class AppointmentService {
       })
     );
     return this.profInfo;
+  }
+
+  getAppByDate(date: string) {
+
+  }
+
+  calcTime(gap: any, initial: any, end: any): Array<any> {
+     switch (gap) {
+      case 60:
+        while (end > initial) {
+          this.hours.push(`${initial}:00`);
+          initial++; }
+        break;
+      case 30:
+        while (end > initial) {
+          this.hours.push(`${initial}:00`);
+          this.hours.push(`${initial}:30`);
+          initial++;
+        }
+        break;
+      case 15:
+        while (end > initial) {
+          this.hours.push(`${initial}:00`);
+          this.hours.push(`${initial}:15`);
+          this.hours.push(`${initial}:30`);
+          this.hours.push(`${initial}:45`);
+          initial++;
+        }
+    }
+     return this.hours;
+  }
+  numberToTime(time: number): string {
+    let res = '';
+    if (time.toString().length === 2) {
+      res = `00:${time}`;
+    } else if (time.toString().length === 3) {
+      const txt = time.toString();
+      res = `0${txt.substr(0, 1)}:${txt.substr(1)}`;
+    } else {
+      const txt = time.toString();
+      res = `${txt.substr(0, 2)}:${txt.substr(2, 4)}`;
+    }
+    console.log(res);
+    return res;
   }
 }
 
